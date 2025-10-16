@@ -23,7 +23,7 @@ Aplikasi ini memungkinkan pengguna untuk **mendaftar akun (Sign Up)**, **login m
 | 👋 **Welcome Page** | Tampilan awal dengan tombol login dan signup |
 | 🔐 **Login Ganda** | Mendukung login via *dummy JSON file* dan *SharedPreferences* |
 | 🧾 **Signup Lokal** | Menyimpan akun baru ke `SharedPreferences` (tanpa database) |
-| 🌍 **Home Page dengan Geolocator** | Menampilkan lokasi pengguna otomatis berdasarkan GPS |
+| 🌍 **Home Page dengan Geolocator** | Menampilkan lokasi pengguna otomatis berdasarkan GPS dan menampilkan barang sesuai lokasi pengguna |
 | 👤 **Profile Page Dinamis** | Menampilkan nama & email pengguna dari session yang tersimpan |
 | 🔁 **Persistent Session** | User tetap login meski aplikasi ditutup |
 | 🚪 **Logout Aman** | Menghapus flag login tanpa menghapus data user |
