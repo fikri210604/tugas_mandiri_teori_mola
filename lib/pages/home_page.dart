@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controllers/home_controller.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => HomeController()..init(), // langsung init di sini
+      create: (_) => HomeController()..init(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -24,10 +25,22 @@ class HomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // logo kiri
-                        Image.asset('assets/images/logo.png', width: 40),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProfilePage(),
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            width: 40,
+                          ),
+                        ),
 
-                        // lokasi otomatis dari controller
+                        // Lokasi otomatis dari controller
                         Row(
                           children: [
                             const Icon(
@@ -78,13 +91,12 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
-                  // ===================== SEARCH BAR =====================
+                  // SEARCH BAR 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText:
-                            "Temukan Mobil, Motor, Sepeda, dan lain-lainnya...",
+                        hintText: "Temukan Mobil, Motor, Sepeda, dan lain-lainnya...",
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -96,7 +108,7 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // ===================== BANNER SLIDER =====================
+                  // BANNER 
                   SizedBox(
                     height: 180,
                     child: ListView(
@@ -111,7 +123,7 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // ===================== KATEGORI =====================
+                  // ===================== KATEGORI
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
@@ -126,13 +138,19 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 10),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  SizedBox(
+                    height: 130,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       children: [
                         categoryCard(Icons.directions_car, "Mobil"),
+                        const SizedBox(width: 10),
                         categoryCard(Icons.motorcycle, "Motor"),
+                        const SizedBox(width: 10),
+                        categoryCard(Icons.smartphone, "Handphone"),
+                        const SizedBox(width: 10),
+                        categoryCard(Icons.laptop, "Laptop"),
                       ],
                     ),
                   ),
@@ -153,6 +171,7 @@ class HomePage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 10),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
@@ -161,6 +180,7 @@ class HomePage extends StatelessWidget {
                           child: productCard(
                             "Honda CIVIC 1.5L 2020",
                             "Rp 530.000.000",
+                            "assets/images/mobil1.png",
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -168,6 +188,7 @@ class HomePage extends StatelessWidget {
                           child: productCard(
                             "Koenigsegg Agera RS 2020",
                             "Rp 1.350.000.000",
+                            "assets/images/mobil2.png",
                           ),
                         ),
                       ],
@@ -182,7 +203,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // ======== Widget Reusable ========
+  // ===================== COMPONENTS =====================
 
   static Widget bannerCard(String imagePath) {
     return Container(
@@ -190,7 +211,10 @@ class HomePage extends StatelessWidget {
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -198,26 +222,27 @@ class HomePage extends StatelessWidget {
   static Widget categoryCard(IconData icon, String title) {
     return Container(
       padding: const EdgeInsets.all(16),
-      width: 140,
+      width: 120,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF0A2C6C)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1), 
-            blurRadius: 10, 
-            spreadRadius: 2, 
-            offset: const Offset(0, 3), 
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: 40, color: const Color(0xFF0A2C6C)),
           const SizedBox(height: 8),
           Text(
             title,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Color(0xFF0A2C6C),
               fontWeight: FontWeight.w600,
@@ -228,7 +253,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  static Widget productCard(String title, String price) {
+  static Widget productCard(String title, String price, String imagePath) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -236,18 +261,22 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
-          BoxShadow(color: Colors.black12.withOpacity(0.05), blurRadius: 4),
+          BoxShadow(
+            color: Colors.black12.withOpacity(0.05),
+            blurRadius: 4,
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Gambar produk
           Container(
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/banner1.png'),
+              image: DecorationImage(
+                image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),
@@ -263,14 +292,20 @@ class HomePage extends StatelessWidget {
           ),
           Text(
             title,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 3),
           const Row(
             children: [
               Icon(Icons.location_on, color: Colors.grey, size: 14),
               SizedBox(width: 4),
-              Text("Rajabasa, Bandar L", style: TextStyle(fontSize: 11)),
+              Text(
+                "Rajabasa, Bandar L",
+                style: TextStyle(fontSize: 11),
+              ),
             ],
           ),
         ],

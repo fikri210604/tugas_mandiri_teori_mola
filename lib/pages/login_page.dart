@@ -142,7 +142,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // ============================
   // 🔹 Widget Reusable
   // ============================
   Widget _buildLabel(String text) => Text(
@@ -154,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
 
+// Widget untuk membuat TextField
   Widget _buildTextField(
     TextEditingController controller, {
     required String hint,
@@ -180,6 +180,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// Widget untuk membuat PasswordField
   Widget _buildPasswordField(TextEditingController controller) {
     return TextField(
       controller: controller,

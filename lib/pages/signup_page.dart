@@ -37,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          "Login",
+          "Sign Up",
           style: TextStyle(
             color: Color(0xFF0A2C6C),
             fontWeight: FontWeight.w600,
@@ -61,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 28),
 
-            // EMAIL
+            // Form Email
             _buildLabel("Email"),
             _buildTextField(
               controller.emailController,
@@ -70,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 20),
 
-            // PASSWORD
+            // Form Password
             _buildLabel("Masukkan Kata Sandi"),
             _buildPasswordField(
               controller.passwordController,
@@ -84,12 +84,14 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 20),
 
-            // KONFIRMASI PASSWORD
+            // Form Konfirmasi Password
             _buildLabel("Konfirmasi Kata Sandi"),
             _buildPasswordField(
               controller.confirmPasswordController,
               _obscureConfirmPassword,
-              () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
+              () => setState(
+                () => _obscureConfirmPassword = !_obscureConfirmPassword,
+              ),
             ),
             const SizedBox(height: 5),
             const Text(
@@ -98,7 +100,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 20),
 
-            // USERNAME
+            // Form Username
             _buildLabel("Masukkan Username"),
             _buildTextField(
               controller.usernameController,
@@ -111,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 40),
 
-            // BUTTON LANJUT
+            // Lanjut
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -140,19 +142,18 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  // ==============================
-  // Widget Helper Components
-  // ==============================
+  // Komponen UI Reusable
 
   Widget _buildLabel(String text) => Text(
-        text,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-          color: Color(0xFF0A2C6C),
-          fontSize: 13,
-        ),
-      );
+    text,
+    style: const TextStyle(
+      fontWeight: FontWeight.w600,
+      color: Color(0xFF0A2C6C),
+      fontSize: 13,
+    ),
+  );
 
+  // Widget untuk mengisi teks (Username & email)
   Widget _buildTextField(
     TextEditingController controller, {
     required String hint,
@@ -164,7 +165,10 @@ class _SignupPageState extends State<SignupPage> {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: Colors.grey),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: Color(0xFF0A2C6C)),
@@ -177,6 +181,7 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+  // Widget untuk mengisi password
   Widget _buildPasswordField(
     TextEditingController controller,
     bool obscure,
@@ -188,7 +193,10 @@ class _SignupPageState extends State<SignupPage> {
       decoration: InputDecoration(
         hintText: "Masukkan Kata Sandi Anda",
         hintStyle: const TextStyle(color: Colors.grey),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         suffixIcon: IconButton(
           icon: Icon(
             obscure ? Icons.visibility_off : Icons.visibility,

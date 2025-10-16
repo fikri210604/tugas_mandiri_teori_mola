@@ -1,93 +1,99 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../pages/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../assets/navigation_bar.dart';
 
-/// 🧭 SignupController
-/// Controller ini bertanggung jawab untuk:
-/// - Menangani input pengguna saat proses pendaftaran (Sign Up)
-/// - Melakukan validasi data (email, password, konfirmasi password, username)
-/// - Menampilkan pesan error dengan Snackbar
-/// - Navigasi ke halaman HomePage setelah data valid
 class SignupController {
-  /// Context dibutuhkan untuk melakukan navigasi dan menampilkan snackbar
   final BuildContext context;
 
-  /// Controller untuk setiap input field agar bisa membaca teks yang diinput
+  // Controller untuk input form
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final usernameController = TextEditingController();
 
-  /// Konstruktor wajib menerima context
   SignupController(this.context);
 
-  // =============================================================
-  // 🔹 Fungsi utama: Validasi input pengguna
-  // =============================================================
-  bool validateInputs() {
-    final email = emailController.text.trim(); // hapus spasi di awal/akhir
-    final pass = passwordController.text;
-    final confirmPass = confirmPasswordController.text;
+  // Validasi Input Form
+  bool _validateInputs() {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+    final confirm = confirmPasswordController.text;
     final username = usernameController.text.trim();
 
-    // 1️⃣ Pastikan semua field terisi
-    if (email.isEmpty || pass.isEmpty || confirmPass.isEmpty || username.isEmpty) {
+    if ([email, password, confirm, username].any((v) => v.isEmpty)) {
       _showMessage("⚠️ Harap isi semua field!");
       return false;
     }
 
-    // 2️⃣ Validasi format email (harus ada '@' dan '.')
-    if (!email.contains("@") || !email.contains(".")) {
+    if (!_isValidEmail(email)) {
       _showMessage("📧 Format email tidak valid!");
       return false;
     }
 
-    // 3️⃣ Validasi panjang password
-    if (pass.length < 8) {
+    if (password.length < 8) {
       _showMessage("🔒 Password minimal 8 karakter!");
       return false;
     }
 
-    // 4️⃣ Pastikan konfirmasi password sama
-    if (pass != confirmPass) {
+    if (password != confirm) {
       _showMessage("❌ Konfirmasi password tidak cocok!");
       return false;
     }
 
-    // ✅ Semua validasi lolos
     return true;
   }
 
-  // =============================================================
-  // 🔹 Fungsi utilitas untuk menampilkan pesan dengan Snackbar
-  // =============================================================
-  void _showMessage(String msg) {
+  bool _isValidEmail(String email) =>
+      email.contains("@") && email.contains(".");
+
+  // Simpan Data User ke SharedPreferences (Dummy JSON)
+  Future<void> _saveUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final userData = {
+      "user_name": usernameController.text.trim(),
+      "user_email": emailController.text.trim(),
+      "user_password": passwordController.text.trim(),
+    };
+
+    // Simpan dalam format JSON
+    await prefs.setString('user_data', jsonEncode(userData));
+    await prefs.setString('user_name', userData["user_name"]!);
+    await prefs.setString('user_email', userData["user_email"]!);
+  }
+
+  // 🔹 Submit Signup
+  Future<void> submitSignup() async {
+    if (!_validateInputs()) return;
+
+    await _saveUserData();
+
+    if (!context.mounted) return;
+    _showMessage("✅ Pendaftaran berhasil!", color: Colors.green);
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (!context.mounted) return; 
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const CustomNavigation()),
+    );
+  }
+
+  // Snackbar Utility (Notifikasi Pesan)
+  void _showMessage(String msg, {Color color = Colors.redAccent}) {
     ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar() // hapus snackbar sebelumnya agar tidak menumpuk
+      ..removeCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
           content: Text(msg),
-          backgroundColor: Colors.redAccent, // warna merah untuk error
+          backgroundColor: color,
           behavior: SnackBarBehavior.floating,
         ),
       );
   }
 
-  // =============================================================
-  // 🔹 Fungsi submit: jika valid, arahkan ke HomePage
-  // =============================================================
-  void submitSignup() {
-    if (validateInputs()) {
-      // Di sini nanti bisa ditambahkan logic simpan data (misal ke Firebase / API)
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
-      );
-    }
-  }
-
-  // =============================================================
-  // 🔹 Bersihkan semua TextEditingController (hindari memory leak)
-  // =============================================================
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
