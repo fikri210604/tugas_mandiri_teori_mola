@@ -2,8 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controllers/profile_controller.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      Provider.of<ProfileController>(context, listen: false).loadUser();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +42,7 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
-      body: profile.userName.isEmpty
+      body: profile.isLoading
           ? const Center(
               child: CircularProgressIndicator(
                 color: Color(0xFF0A2C6C),
@@ -51,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // 🔹 Nama & Email dari SharedPreferences
+                  // 🔹 Data Nama & Email
                   Text(
                     profile.userName,
                     style: const TextStyle(
@@ -68,17 +81,16 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-
                   const SizedBox(height: 16),
 
+                  // 🔹 Tombol Edit Profil
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content:
-                                Text('Menu edit profil coming soon!'),
+                            content: Text('Menu edit profil coming soon!'),
                           ),
                         );
                       },
@@ -101,6 +113,7 @@ class ProfilePage extends StatelessWidget {
 
                   const SizedBox(height: 30),
 
+                  // Menu Menu
                   _buildMenuItem(
                     icon: Icons.shopping_cart_outlined,
                     title: "Pesanan & Booking",
@@ -125,7 +138,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // 🔹 Komponen menu reusable
+  // 🔹 Komponen Menu Reusable
   Widget _buildMenuItem({
     required IconData icon,
     required String title,
@@ -159,8 +172,11 @@ class ProfilePage extends StatelessWidget {
           subtitle,
           style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios_rounded,
-            color: Color(0xFF0A2C6C), size: 18),
+        trailing: const Icon(
+          Icons.arrow_forward_ios_rounded,
+          color: Color(0xFF0A2C6C),
+          size: 18,
+        ),
         onTap: onTap,
       ),
     );

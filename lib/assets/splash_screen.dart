@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    //Controller untuk animasi progress bar
+    // Controller untuk animasi progress bar
     _progressController =
         AnimationController(vsync: this, duration: const Duration(seconds: 4))
           ..addListener(() {
