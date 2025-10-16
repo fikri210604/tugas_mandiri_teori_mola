@@ -1,4 +1,4 @@
-# 🚗 **OtoLink — Aplikasi Marketplace Kendaraan Bermotor**
+# 🚗 **OtoLink — Aplikasi Marketplace Kendaraan Bermotor dan Elektronik**
 > Tugas Mandiri MOLA — Universitas Lampung (2025)
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.9.0-blue?logo=flutter)
@@ -10,7 +10,7 @@
 
 ## 📘 **Deskripsi Proyek**
 
-**OtoLink** adalah aplikasi marketplace kendaraan bermotor berbasis **Flutter** yang dikembangkan untuk memenuhi tugas mandiri mata kuliah **Mobile Programming (MOLA)**.  
+**OtoLink** adalah aplikasi marketplace kendaraan bermotor dan elektronik berbasis **Flutter** yang dikembangkan untuk memenuhi tugas mandiri mata kuliah **Mobile Programming (MOLA)**.  
 Aplikasi ini memungkinkan pengguna untuk **mendaftar akun (Sign Up)**, **login menggunakan akun JSON maupun lokal**, **mendeteksi lokasi pengguna**, serta **mengelola profil akun** dengan tampilan modern dan responsif.
 
 ---
