@@ -76,4 +76,15 @@ Aplikasi ini memungkinkan pengguna untuk **mendaftar akun (Sign Up)**, **login m
 ```bash
 git clone https://github.com/username/tugasmandiri_mola_2317051061.git
 cd tugasmandiri_mola_2317051061
+```
+### 2️⃣ Install Dependency
+```bash
+flutter pub get
+```
+### 3️⃣ Menjalankan APK
+```bash
+flutter run
+```
+
+
 
