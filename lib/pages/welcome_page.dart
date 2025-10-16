@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
               const SizedBox(height: 8),
 
               const Text(
-                "Pusatnya Ngedeal Kendaraan Bermotor!",
+                "Pusatnya Ngedeal Kendaraan Bermotor dan Elektronik!",
                 style: TextStyle(
                   fontSize: 13,
                   color: Colors.grey,

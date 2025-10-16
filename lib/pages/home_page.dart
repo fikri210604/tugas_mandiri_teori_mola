@@ -91,12 +91,13 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
-                  // SEARCH BAR 
+                  // SEARCH BAR
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: "Temukan Mobil, Motor, Sepeda, dan lain-lainnya...",
+                        hintText:
+                            "Temukan Mobil, Motor, Sepeda, dan lain-lainnya...",
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -108,7 +109,7 @@ class HomePage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // BANNER 
+                  // BANNER
                   SizedBox(
                     height: 180,
                     child: ListView(
@@ -211,10 +212,7 @@ class HomePage extends StatelessWidget {
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
       ),
     );
   }
@@ -228,17 +226,17 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            spreadRadius: 2,
-            offset: const Offset(0, 3),
+            color: Colors.black12.withOpacity(0.1), 
+            blurRadius: 12, 
+            spreadRadius: 1, 
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 40, color: const Color(0xFF0A2C6C)),
+          Icon(icon, size: 36, color: const Color(0xFF0A2C6C)),
           const SizedBox(height: 8),
           Text(
             title,
@@ -261,10 +259,7 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black12.withOpacity(0.05),
-            blurRadius: 4,
-          ),
+          BoxShadow(color: Colors.black12.withOpacity(0.05), blurRadius: 4),
         ],
       ),
       child: Column(
@@ -292,20 +287,14 @@ class HomePage extends StatelessWidget {
           ),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 3),
           const Row(
             children: [
               Icon(Icons.location_on, color: Colors.grey, size: 14),
               SizedBox(width: 4),
-              Text(
-                "Rajabasa, Bandar L",
-                style: TextStyle(fontSize: 11),
-              ),
+              Text("Rajabasa, Bandar L", style: TextStyle(fontSize: 11)),
             ],
           ),
         ],
